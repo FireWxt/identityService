@@ -1,5 +1,5 @@
 import express from "express";
-import { users } from "./users.data.js";
+import { users } from "./userModel.js";
 
 const app = express();
 

@@ -1,11 +1,15 @@
 import express from "express";
+import swaggerUi from "swagger-ui-express";
 import { users } from "./userModel.js";
+import { openapiSpec } from "./openapi.js";
 
 const app = express();
 
 app.get("/", (_req, res) => {
   res.send("Identity Service");
 });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
 
 // Consultation des utilisateurs
 app.get("/users", (req, res) => {

@@ -6,6 +6,7 @@ export const openapiSpec = {
     description: "API de consultation des utilisateurs.",
   },
   servers: [{ url: "http://localhost:3000" }],
+  security: [{ HostToken: [] }],
   paths: {
     "/users": {
       get: {
@@ -23,6 +24,7 @@ export const openapiSpec = {
               },
             },
           },
+          "401": { description: "Jeton inter-services manquant ou invalide" },
         },
       },
     },
@@ -41,6 +43,7 @@ export const openapiSpec = {
             },
           },
           "400": { description: "Identifiant invalide" },
+          "401": { description: "Jeton inter-services manquant ou invalide" },
           "404": { description: "Utilisateur non trouvé" },
         },
       },
@@ -66,11 +69,20 @@ export const openapiSpec = {
             },
           },
           "400": { description: "Identifiant invalide" },
+          "401": { description: "Jeton inter-services manquant ou invalide" },
         },
       },
     },
   },
   components: {
+    securitySchemes: {
+      HostToken: {
+        type: "apiKey",
+        in: "header",
+        name: "X-Host-Token",
+        description: "Jeton partagé entre les microservices",
+      },
+    },
     parameters: {
       UserId: {
         name: "id",
